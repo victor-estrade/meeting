@@ -1,0 +1,230 @@
+<meta charset="utf-8" lang="en">
+
+**Intervales de confiances et inférence**
+
+2020 / 12 / 01
+
+<small><em><span class="current-date"></span></em></small><br>
+
+
+---
+## Plan
+
+- intervalle de confiance et test statistique
+- Profiled likelihood
+- ln + 1/2
+
+---
+## intervalle de confiance
+
+Deux fonctions : Up(Data) et Down(Data) tel que
+
+$$
+\forall \mu,  Proba \{ Down(Data) < \mu < Up(Data) \} = 1 - \delta
+$$
+
+La *coverage probability* de $[Down(Data), Up(Data)]$ est $1 - \delta$ pour toutes valeurs
+de $\mu$ possibles donc aussi pour la vrai valeur de $\mu^\star$
+
+---
+
+Si je choisi une valeur de $\mu$ puis que je sample des données *Data*.
+
+Alors dans 90% des cas l'encadrement [Down(Data), Up(Data)] contiendra $\mu$ quelque soit le $\mu choisi au départ.
+
+
+---
+## exemple
+
+On a une loi normale de moyenne $\mu^\star$ et variance $\sigma$
+On échantillone N points dans la normale -> *Data*
+
+Pour estimer $\mu$ on prend la moyenne empirique $\hat \mu$.
+
+Si on veut un intervalle pour $\hat \mu$. On sait que 1$\sigma$ donne 68%.
+
+Donc on prend un estimateur de $\sigma$ = ...
+Et notre intervalle c'est $[\hat \mu - \hat \sigma, \hat \mu + \hat \sigma]$
+
+Donc dans 68% des échantillonages on aura $\mu^\star \in [\hat \mu - \hat \sigma, \hat \mu + \hat \sigma]$
+
+
+
+---
+## Q ?
+
+Comment on construit un intervalle de confiance ?
+
+
+---
+## Méthode 01 : inverser un test statistique
+
+- $H_0$ : $\mu = \mu_0$ arbitraire
+- $H_1$ : $\mu \neq \mu_0$ arbitraire
+
+Likelihood ratio test :
+
+$$\frac{L(H_0)}{L(H_1)}  =  \frac{L(\mu = \mu_0)}{L(\mu \neq \mu_0)}$$
+
+Calculer les valeurs de $\mu_0$ rejetées.
+
+---
+## Déprime
+
+Les physiciens ont raison :
+
+- La découverte = test statistique
+- l'inférence = test statistique (inversé)
+
+
+---
+## Param de nuisance
+
+Quand on a $\mu$ et $\alpha$ 2 paramètres mais que seul l'intervalle sur $\mu$ nous intéresse ?
+
+L'intervalle devient un volume et les calculs se compliquent.
+
+Donc on va ruser.
+
+---
+## Méthode 01+ : Profile likelihood
+
+$$
+\lambda (\mu_0) = \frac{\max_{\alpha} L(\mu_0, \alpha) }{\max_{\alpha, \mu} L(\mu, \alpha)}
+$$
+
+Wilk's theorem :
+
+$$
+-2 log \lambda \to \chi^2
+$$
+
+---
+## Méthode 01+ : Profile likelihood
+
+Donc si on veux un interval à 1 $\sigma$
+
+Ce qui nous arrange bien car $F^{-1}_{\chi^2} (68\%) = 1$
+
+On obtient que
+
+$$
+\max_{\alpha, \mu} log L(\mu, \alpha) = \max_{\alpha} log L(\mu_0, \alpha) + 1 / 2
+$$
+
+D'où la méthode "ln + 1/2"
+
+---
+## MINUIT  MINOS
+
+Minuit permet de calculer le maximum likelihood et a un algo pour l'intervalle de confiance avec la méthode $ln +1/2$ (MINOS)
+
+QUe je n'utilise pas car ça fait $\times 5$ sur le temps de calcul.
+
+Je me contente de la hessian qui est une approx hyperbolique.
+
+Approx qui est valide en cas de large samples.
+Mais est "connu" pour ne pas fonctionner si on a pas bcp de samples -> les queues deviennent linéaire au lieu d'hyperbolique.
+
+
+---
+## Paradoxe
+
+Un intervalle de confiance [0, 1] à 90% ne veut pas dire que l'on a un proba de 90% que la vrai valeur du paramètre soit dans l'intervalle.
+
+Mais que la réalisation de l'intervalle a une probabilité de 90% de couvrir la vrai valeur du paramètre.
+
+C'est quoi la différence ?
+
+---
+## Une réalisation n'a pas de proba
+
+Si j'ai bien compris une fois l'intervalle la réalisé on ne peut plus lui affecter de probabilité.
+
+La méthode de construction de l'intervalle a une probabilité 90% de couvrir.
+Mais la réalisation n'a pas de fréquence donc pas de proba.
+
+Jetter un dé 6 face a une chance sur deux de donner un nombre pair mais un dé qui tombe sur une valeur x (caché) n'a pas de chance/proba.
+
+---
+## Problème
+
+Le régresseur et la méthode standard (MINUIT) ne calculent donc pas la même chose !
+
+Le régresseur calcule un intervalle de crédence (bayesien)
+
+MINUIT calcule un intervalle de confiance (fréquentiste)
+
+Les interpréter de la même manière peut être glissant.
+
+
+---
+# RDV avec Anne Vilnat
+
+---
+## Plan de thèse : fil rouge
+
+On a discuté un peu de plan de thèse.
+
+Son idée : si on a des résultats pas super on peut renverser les hypothèses, renverser l'approche
+
+Par exemple plutot que : "ce truc va améliorer les performances".
+
+Avoir plutot : "Quels hypothèses non validées ne permettent pas à ce truc de fonctionner."
+
+
+---
+## Calendrier
+
+- Décembre : récupérer les dernier résultats d'XP
+- Décembre : plan détaillé
+- Janvier : Rédaction
+- Février : (rédaction et) préparation de soutenance
+- Mars : préparation de soutenance
+- Avril : Soutenance
+
+EN gros 6 semaines pour les review + 2 semaines pour l'accord de l'ED de soutenir.
+
+
+---
+# Backup
+
+
+---
+# END
+
+
+
+
+
+<!-- Markdeep slides stuff -->
+<script>
+    markdeepSlidesOptions = {
+        aspectRatio: 16 / 9,
+        theme: 'amazing',
+        fontSize: 28,
+        diagramZoom: 1.0,
+        totalSlideNumber: false,
+        progressBar: true,
+        breakOnHeadings: false,
+        slideChangeHook: (oldSlide, newSlide) => {},
+        modeChangeHook: (newMode) => {}
+    };
+</script>
+<link rel="stylesheet" href="markdeep-slides/lib/markdeep-relative-sizes/1.11/relativize.css">
+<link rel="stylesheet" href="markdeep-slides/markdeep-slides.css">
+<script src="markdeep-slides/markdeep-slides.js"></script>
+
+<!-- Markdeep stuff -->
+<script>
+    markdeepOptions = {
+        tocStyle: 'none',
+        detectMath: false,
+        onLoad: function() {
+            initSlides();
+        }
+    };
+</script>
+<style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style>
+<script src="markdeep-slides/lib/markdeep/1.11/markdeep.min.js" charset="utf-8"></script>
+<script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>

@@ -1,0 +1,113 @@
+<meta charset="utf-8" lang="en">
+
+**Pipeline**
+
+<small><em><span class="current-date"></span></em></small><br>
+
+
+---
+## Avancement
+
+- Plot du gain
+- Écriture d'un document décrivant le pipeline
+- Lancement des XP avec un Classifieur filtre devant le Regresseur
+- Lancement de la calibration sur Higgs
+- Nouveau modèle naïf sans classifieur (FeatureFilterModel)
+
+---
+## Gain 2 bins vs 1
+
+![Figure : Gain 2 bin vs 1 bin](./2020_12_14/threshold_fisher_gain.png)
+
+
+
+---
+## Pipeline
+
+
+
+---
+## Classifieur-Regresseur
+
+
+
+---
+## Calibration sur Higgs
+
+
+
+---
+## FeatureFilterModel
+
+
+
+---
+# Next
+
+
+
+---
+## TODO
+
+- Comparer FeatureFilterModel avec le Classifieur
+- Debug/analyser Classifieur-Regresseur
+- Proposer un plan de thèse
+
+
+
+
+---
+## Plan de thèse
+
+Partir sur :
+- Objectif = participer à l'automatisation du pipeline d'analyse
+- Idée / Résultat : Robustesse / Syst Aware learning "ça marche pas toujours"
+- Idée / Résultat : Extraire d'autre summary statistic from data
+- Idée / Résultat : Direct Regression
+  - Si donnée infini alors problème = linéaire
+  - Neural network classifier + regression = Big neural network doing both
+
+
+
+---
+# Backup
+
+
+---
+# END
+
+
+
+
+
+<!-- Markdeep slides stuff -->
+<script>
+    markdeepSlidesOptions = {
+        aspectRatio: 16 / 9,
+        theme: 'amazing',
+        fontSize: 28,
+        diagramZoom: 1.0,
+        totalSlideNumber: false,
+        progressBar: true,
+        breakOnHeadings: false,
+        slideChangeHook: (oldSlide, newSlide) => {},
+        modeChangeHook: (newMode) => {}
+    };
+</script>
+<link rel="stylesheet" href="markdeep-slides/lib/markdeep-relative-sizes/1.11/relativize.css">
+<link rel="stylesheet" href="markdeep-slides/markdeep-slides.css">
+<script src="markdeep-slides/markdeep-slides.js"></script>
+
+<!-- Markdeep stuff -->
+<script>
+    markdeepOptions = {
+        tocStyle: 'none',
+        detectMath: false,
+        onLoad: function() {
+            initSlides();
+        }
+    };
+</script>
+<style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style>
+<script src="markdeep-slides/lib/markdeep/1.11/markdeep.min.js" charset="utf-8"></script>
+<script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>

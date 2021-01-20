@@ -1,0 +1,207 @@
+<meta charset="utf-8" lang="en">
+
+**Updates**
+
+2020 / 10 / 22
+
+<small><em><span class="current-date"></span></em></small><br>
+
+---
+
+# Semaine dernière
+
+
+
+---
+## Besoin des résultats sur Higgs
+
+On a besoin de la "fin de l'histoire" pour fixer le discours du manuscrit.
+
+
+
+---
+## Rappel des XP précédentes sur Higgs
+
+Le classifieur se débrouille mais c'est bof.
+
+Le Regressor apprend une fonction constante.
+Car Signal / Bruit trop faible.
+
+
+
+---
+## XP sur Higgs
+
+Objectifs :
+
+- 3 paramètres de nuisance => $3^3 \times$ number of $\mu^\star$
+- 3 versions
+    - *Standard* (signaux / backgrounds =  1 / 600)
+    - *Easy* (signaux / backgrounds = 5%)
+    - *Balanced* (signaux / backgrounds = 1)
+
+Je pense que *Balanced* est oubliable.
+
+
+
+
+---
+## Beaucoup trop long
+
+Petit test pour estimer le temps de calcul :
+
+!!! error:
+    Mes runs terminent après 2021 !
+
+
+
+
+---
+##  Optimization
+
+Le simulateur est le programme le + appelé.
+C'est le facteur limitant.
+
+-> Calcul sur GPU
+
+!!! tip:
+    La nouvelle version va 20 fois + vite
+
+
+
+
+---
+## Temps de calcul ?
+
+Une petite estimation donne : +60h pour 1 echantillonage (cv_iter) pour un model
+
+!!! warning:
+    C'est encore trop long.
+
+90% du temps (voir +) pour le calcul de $V_{stat}$ et $V_{syst}$
+
+
+
+---
+## Conclusion
+
+XP préliminaires
+
+- avec un seul paramètre de nuisance
+- sans le calcul de $V_{stat}$ et $V_{syst}$
+
+
+
+
+---
+# Cette semaine
+
+
+
+
+---
+## Classifieurs sur HIGGS
+
+<small>
+![Figure [fig:higgs_GB]: Gradient Boosting](./2020_10_22/GB/true_mu_estimator.png width="10rem")
+![Figure [fig:higgs_NN]: Neural Net classifier](./2020_10_22/NN/true_mu_estimator.png width="10rem")
+![Figure [fig:higgs_DA]: Data Augmentation](./2020_10_22/DA/true_mu_estimator.png width="10rem")
+</small>
+
+Les valeurs élevées de $\tau_{pt}$ (<span style="color:green">vert</span>) sont plutôt signal-like.
+=> l'estimateur pense qu'il y a + de signaux => $\hat \mu$ est + élevé.
+
+
+
+---
+## Regressor sur Higgs
+
+![Figure [fig:higgs_REG]: Regressor](./2020_10_22/REG/true_mu_estimator.png width="500px")
+
+
+Apprends une fonction constante.
+
+
+
+
+
+---
+## Temps de calcul
+
+1 à 2 jours par model => Similaire au Toy 1D.
+
+
+
+
+
+---
+## Administratif
+
+- Réinscription 5è année
+    - Commencé à remplir les cases sur adum
+- Contrat "Fin de thèse"
+    - 1er envoit à Maeva
+
+
+
+---
+# Next step
+
+
+
+
+
+---
+## Continuer les XP
+
+Objectif : Avoir des résultats propres pour le RDV avec l'ED début novembre.
+
+Sur HIGGS TES ONLY.
+
+
+---
+## Semaine prochaine
+
+- INFERNO sur HIGGS TES ONLY
+- Tangent Prop sur HIGGS TES ONLY
+- Pivot sur HIGGS TES ONLY
+- REG Marginal sur HIGGS TES ONLY
+
+
+Sur Prior et Calib.
+
+
+
+
+
+<!-- Markdeep slides stuff -->
+<script>
+    markdeepSlidesOptions = {
+        aspectRatio: 16 / 9,
+        theme: 'reckons',
+        fontSize: 28,
+        diagramZoom: 1.0,
+        totalSlideNumber: false,
+        progressBar: true,
+        breakOnHeadings: false,
+        slideChangeHook: (oldSlide, newSlide) => {},
+        modeChangeHook: (newMode) => {}
+    };
+</script>
+<link rel="stylesheet" href="markdeep-slides/lib/markdeep-relative-sizes/1.11/relativize.css">
+<link rel="stylesheet" href="markdeep-slides/markdeep-slides.css">
+<script src="markdeep-slides/markdeep-slides.js"></script>
+
+<!-- Markdeep stuff -->
+<script>
+    markdeepOptions = {
+        tocStyle: 'none',
+        detectMath: false,
+        onLoad: function() {
+            initSlides();
+        }
+    };
+</script>
+<style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style>
+<script src="markdeep-slides/lib/markdeep/1.11/markdeep.min.js" charset="utf-8"></script>
+<script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
