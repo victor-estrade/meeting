@@ -5,12 +5,35 @@
 
 <small><em><span class="current-date"></span></em></small><br>
 Victor Estrade
----
 
+---
+# Standard pipeline
+
+---
+## Algo
+
+1. Take a 1D descriptions of the events
+2. Binning to extract summary statistics -> $n_i$
+3. Apply maximum likelihood point estimation -> $\hat \mu$
+4. Invert test statistic (profiled likelihood included)
+
+\begin{equation}
+  \frac{H(\mu = \hat \mu)}{H(\mu \neq \hat \mu)}
+\end{equation}
+
+---
+## The model
+
+The model used to apply maximum likelihood is the binned poisson likelihood combined with the calibration.
+
+\begin{equation}
+  L(\mu, \alpha) = L(Calib | \alpha) \times \prod_{i=0}^K Poisson(n_i | \mu \gamma_i + \beta_i)
+\end{equation}
+
+---
 # Upgrades
 
 ---
-
 ## Upgrades chain
 
 1. Best feature
@@ -20,33 +43,72 @@ Victor Estrade
 5. Upgrade model
 
 ---
-## Best feature
+## Best feature
 
-Take one feature and use the standard pipeline on it.
-Choose the best one.
+For all features use the standard pipeline on it.
 
+Choose the feature giving the smaller interval.
 
 ---
 ## Classifier
 
 Dimension reduction to 1D.
 
+Trying to separate signal events and background events.
+
+cf inverse fisher and Cramer Rao bound without systematics
+
+\begin{equation}
+  \sum_{i=0}^K \frac{\gamma_i^2}{\mu \gamma_i + \beta_i } \leq \frac{(\sum_{i=0}^K \gamma_i)^2}{\sum_{i=0}^K \mu \gamma_i + \beta_i }
+\end{equation}
+
+---
+## Classifier
+
+Tries to concentrate all the information about $\mu$ inside one feature.
+
 
 ---
 ## Robust classifier
 
+Starting point for us.
+
+The classifier method does not include systematic effect.
+
+Build a 1D reduction robust to systematic effect.
+(Data augmentation, Pivot, Tangent Propagation)
 
 ---
 ## INFERNO
+
+Differentiable simulator (up to the parameters $\mu, \alpha$) allows to directly optimize the binning.
+
 
 
 ---
 ## Upgrade model
 
+The summary statistics $n_i$ contain mostly information about $\mu$ but both $\mu$ and $\alpha$ are required.
+
+Why not including more information extracted from the data ?
+
+---
+## Upgrade model
+
+Using a regressor (mamouth) trained to regress $\alpha$ we shoud extract as much information about $\alpha$ as possible.
+
+Then we include it in the model.
+
+\begin{equation}
+  L(\mu, \alpha) = L_c(Calib | \alpha) \times L_e(extra | \alpha) \times \prod_{i=0}^K Poisson(n_i | \mu \gamma_i + \beta_i)
+\end{equation}
 
 
 ---
 ## Conclusion
+
+---
+# END
 
 
 
@@ -55,7 +117,7 @@ Dimension reduction to 1D.
 <script>
     markdeepSlidesOptions = {
         aspectRatio: 16 / 9,
-        theme: 'simple',
+        theme: 'amazing',
         fontSize: 28,
         diagramZoom: 1.0,
         totalSlideNumber: false,
