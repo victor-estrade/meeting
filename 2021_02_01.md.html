@@ -1,0 +1,158 @@
+<meta charset="utf-8" lang="en">
+
+**Fil rouge 2.0**
+
+
+<small><em><span class="current-date"></span></em></small><br>
+Victor Estrade
+
+---
+## Objectif
+
+**faire ressortir la partir machine learning**
+
+---
+## Point de départ
+
+- On entraîne un modèle de ML sur une proxy loss.
+- L'indicateur de performance (taille de l'interval de confiance) n'est pas calculable en un temps raisonnable.
+- La loss de base est la cross-entropy (classification)
+- Cette loss ne prend pas en compte les paramètres de nuisance
+- On cherche à améliorer la proxy loss
+
+---
+## Commentaires
+
+**Ne pas mélanger les 2 nuisance params et figure of merit**
+
+- les caractéristiques proporement ML
+- Un/des indicateurs de performance non additif
+- Prendre en compte les paramètres de nuisance
+
+La figure of merit n'est pas additive.
+Pas instance par instance.
+
+Pas commode à entrainer ML dessus.
+
+---
+## Commentaires
+
+Distinguer :
+- mesure de l'incertitude
+- domain shift
+
+cf : *can you trust your model uncertainty*
+
+Suivre les fils bibliographiques.
+
+Plan sur 4 niveaux.
+
+---
+## Vers une loss robuste au effet systématique
+
+- On ajoute une régularisation pour rendre la classification moins sensible aux transformations induites par les params de nuisance
+- On fait ça avec :
+  - augmentation de donnée
+  - tangent Propagation
+  - adversarial training
+
+
+---
+## Changer la proxy loss
+
+- Proposition d'INFERNO introduisant une lower bound à la taille de l'interval de confiance
+- Requiert que le modèle et le simulateur soient différentiable jusqu'au params de nuisance
+
+---
+## Commentaires
+
+Ne pas avoir un continuum entre classifier et neural statistician like methods
+
+D'un coté la classification et de l'autre (rupture) inferno etc.
+
+C'est pas un VAE car c'est pas additif.
+
+Tableau avec 2 ou 3 axes :
+- technique classification ou pas
+- additif ou pas
+- sur une distribution ou sur les exemples
+
+
+---
+## Autre approche : regression directe
+
+- Nous proposons une autre approche qui est de directement extraire la target ($\mu$) de la distribution empirique (les données XP)
+
+---
+## Autre approche : regression directe
+
+- Avantages :
+  - C'est Likelihood-free
+  - C'est très rapide à l'inférence
+- Désavantages :
+  - On perd les soutients théoriques sur la Likelihood
+    - valider l'interval de confiance
+  - difficile à entraîner
+  - performance très dépendante du rapport signal/bruit
+
+
+---
+## En rassemblant tout ça
+
+- les summary stat du pipeline classique ($n_i$) sont optimisées pour trouver $\mu$ mais pas $\alpha$
+- Utiliser la regression directe pour extraire des info supplémentaire sur les params de nuisance
+- Mettre à jour le modèle pour intégrer ces nouvelles informations
+
+
+---
+## Conclusion
+
+- D'un coté la classification
+- De l'autre l'inférence sur distribution
+- à la fin le deuxième soutient le premier
+
+---
+## TODO
+
+- Expliciter quels sont les indicateurs de perfomances
+  - proposer des idées
+- Pour le futur : reprendre Filter-REG (pourquoi fct constante ? Bug ?)
+- Envoyer les notes + les transparents
+
+---
+# END
+
+
+
+
+<!-- Markdeep slides stuff -->
+<script>
+    markdeepSlidesOptions = {
+        aspectRatio: 16 / 9,
+        theme: 'amazing',
+        fontSize: 28,
+        diagramZoom: 1.0,
+        totalSlideNumber: false,
+        progressBar: true,
+        breakOnHeadings: false,
+        slideChangeHook: (oldSlide, newSlide) => {},
+        modeChangeHook: (newMode) => {}
+    };
+</script>
+<link rel="stylesheet" href="markdeep-slides/lib/markdeep-relative-sizes/1.11/relativize.css">
+<link rel="stylesheet" href="markdeep-slides/markdeep-slides.css">
+<script src="markdeep-slides/markdeep-slides.js"></script>
+
+<!-- Markdeep stuff -->
+<script>
+    markdeepOptions = {
+        tocStyle: 'none',
+        detectMath: false,
+        onLoad: function() {
+            initSlides();
+        }
+    };
+</script>
+<style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style>
+<script src="markdeep-slides/lib/markdeep/1.11/markdeep.min.js" charset="utf-8"></script>
+<script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>
